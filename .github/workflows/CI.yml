@@ -33,7 +33,9 @@ jobs:
             pod repo update --silent
         
       - name: Pod Install.
-        run: pod install
+        run: |
+            cd Example
+            pod install
 
       - name: Run TestPod podspec lint
         run: |
@@ -66,7 +68,9 @@ jobs:
             pod repo update --silent
         
       - name: Pod Install
-        run: pod install
+        run:|
+            cd Example
+            pod install
 
       - name: Run demo for iOS
         run: |
@@ -98,7 +102,9 @@ jobs:
             pod repo update --silent
         
       - name: Pod Install
-        run: pod install
+        run: |
+            cd Example
+            pod install
         
       - name: Clean DerivedData
         run: |
