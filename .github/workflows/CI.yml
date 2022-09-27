@@ -78,6 +78,13 @@ jobs:
           set -o pipefail
           xcodebuild build -workspace "${{ env.WORKSPACE_NAME }}" -scheme "${{ env.iOSSCHEME }}" -destination "${{ matrix.iosDestination }}" -configuration Debug CODE_SIGNING_ALLOWED=NO | xcpretty -c
           
+      - name: Code Coverage
+        run: |
+          set -o pipefail
+          export PATH="/usr/local/opt/curl/bin:$PATH"
+          curl --version
+          bash <(curl -s https://codecov.io/bash) -D './DerivedData/iOS' -J '^TestPod$' -c -X gcov -F ios
+          
   Test:
     name: Unit Test
     runs-on: macos-11
