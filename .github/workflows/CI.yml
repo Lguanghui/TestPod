@@ -116,7 +116,7 @@ jobs:
         run: |
           cd Example
           set -o pipefail
-          xcodebuild test -workspace "${{ env.WORKSPACE_NAME }}" -scheme "TestPod_Tests" -destination "${{ matrix.iosDestination }}" -configuration Debug CODE_SIGNING_ALLOWED=NO | xcpretty -c
+          xcodebuild test -workspace "${{ env.WORKSPACE_NAME }}" -scheme "Pods-TestPod_Tests" -destination "${{ matrix.iosDestination }}" -configuration Debug CODE_SIGNING_ALLOWED=NO | xcpretty -c
           mv ~/Library/Developer/Xcode/DerivedData/ ./DerivedData/iOS
           
       - name: Code Coverage
