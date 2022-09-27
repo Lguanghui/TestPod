@@ -115,10 +115,10 @@ jobs:
             cd Example
             pod install
         
-      - name: Clean DerivedData
-        run: |
-          rm -rf ~/Library/Developer/Xcode/DerivedData/
-          mkdir DerivedData
+#      - name: Clean DerivedData
+#        run: |
+#          rm -rf ~/Library/Developer/Xcode/DerivedData/
+#          mkdir DerivedData
         
       - name: Test - ${{ matrix.iosDestination }}
         run: |
