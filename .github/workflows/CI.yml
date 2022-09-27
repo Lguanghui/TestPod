@@ -1,0 +1,119 @@
+name: "CI"
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '*'
+
+permissions:
+  contents: read
+
+jobs:
+  Pods:
+    name: Cocoapods Lint
+    runs-on: macos-11
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_13.2.1.app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Cocoapods
+        run: gem install cocoapods --no-document --quiet
+        
+      - name: Install Xcpretty
+        run: gem install xcpretty --no-document --quiet
+        
+      - name: Pod Update.
+        run: |
+            cd Example
+            pod repo update --silent
+        
+      - name: Pod Install.
+        run: pod install
+
+      - name: Run TestPod podspec lint
+        run: |
+          set -o pipefail
+          pod lib lint TestPod.podspec --allow-warnings --skip-tests
+          
+  Demo:
+    name: Run Demo
+    runs-on: macos-11
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_13.2.1.app
+      WORKSPACE_NAME: TestPod.xcworkspace
+      iOSSCHEME: TestPod-Example
+    strategy:
+      matrix:
+        iosDestination: ["name=iPhone 13 Pro"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Cocoapods
+        run: gem install cocoapods --no-document --quiet
+        
+      - name: Install Xcpretty
+        run: gem install xcpretty --no-document --quiet
+        
+      - name: Pod Update
+        run: |
+            cd Example
+            pod repo update --silent
+        
+      - name: Pod Install
+        run: pod install
+
+      - name: Run demo for iOS
+        run: |
+          set -o pipefail
+          xcodebuild build -workspace "${{ env.WORKSPACE_NAME }}" -scheme "${{ env.iOSSCHEME }}" -destination "${{ matrix.iosDestination }}" -configuration Debug CODE_SIGNING_ALLOWED=NO | xcpretty -c
+          
+  Test:
+    name: Unit Test
+    runs-on: macos-11
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_13.2.1.app
+      WORKSPACE_NAME: TestPod.xcworkspace
+    strategy:
+      matrix:
+        iosDestination: ["platform=iOS Simulator,name=iPhone 13 Pro"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Cocoapods
+        run: gem install cocoapods --no-document --quiet
+        
+      - name: Install Xcpretty
+        run: gem install xcpretty --no-document --quiet
+        
+      - name: Pod Update
+        run: |
+            cd Example
+            pod repo update --silent
+        
+      - name: Pod Install
+        run: pod install
+        
+      - name: Clean DerivedData
+        run: |
+          rm -rf ~/Library/Developer/Xcode/DerivedData/
+          mkdir DerivedData
+        
+      - name: Test - ${{ matrix.iosDestination }}
+        run: |
+          set -o pipefail
+          xcodebuild test -workspace "${{ env.WORKSPACE_NAME }}" -scheme "Tests iOS" -destination "${{ matrix.iosDestination }}" -configuration Debug CODE_SIGNING_ALLOWED=NO | xcpretty -c
+          mv ~/Library/Developer/Xcode/DerivedData/ ./DerivedData/iOS
+          
+      - name: Code Coverage
+        run: |
+          set -o pipefail
+          export PATH="/usr/local/opt/curl/bin:$PATH"
+          curl --version
+          bash <(curl -s https://codecov.io/bash) -D './DerivedData/iOS' -J '^TestPod$' -c -X gcov -F ios
