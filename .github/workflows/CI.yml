@@ -77,6 +77,7 @@ jobs:
           cd Example
           set -o pipefail
           xcodebuild build -workspace "${{ env.WORKSPACE_NAME }}" -scheme "${{ env.iOSSCHEME }}" -destination "${{ matrix.iosDestination }}" -configuration Debug CODE_SIGNING_ALLOWED=NO | xcpretty -c
+          mv ~/Library/Developer/Xcode/DerivedData/ ./DerivedData/iOS
           
       - name: Code Coverage
         run: |
