@@ -68,7 +68,7 @@ jobs:
             pod repo update --silent
         
       - name: Pod Install
-        run:|
+        run: |
             cd Example
             pod install
 
