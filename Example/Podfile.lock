@@ -1,16 +1,23 @@
 PODS:
-  - TestPod (0.1.0)
+  - FoundationX (0.1.2)
+  - TestPod (0.1.0):
+    - FoundationX (~> 0.1.2)
 
 DEPENDENCIES:
   - TestPod (from `../`)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - FoundationX
 
 EXTERNAL SOURCES:
   TestPod:
     :path: "../"
 
 SPEC CHECKSUMS:
-  TestPod: 6ff3487092a8ad8c8f2470aa09652dcb91deb595
+  FoundationX: 1b6419aacbbae24cec08f7c7bcb336e45d72997b
+  TestPod: 17274cac00d900016dfe667728117c091719ea1f
 
-PODFILE CHECKSUM: 07063422d88180b8242d52d0801e594be39fb508
+PODFILE CHECKSUM: ff95a51ebe639764563b800d286181a6832b59bd
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.12.0
