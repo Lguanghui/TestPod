@@ -38,10 +38,13 @@ jobs:
               git commit -m "chore(ci): auto update CHANGELOG.md"
               git push
             else
+              skip_generate_pr=true
               exit 0
             fi
         - name: Create Pull Request
-          if: $skip_generate_pr == false
+          if: ${{ env.skip_generate_pr }} == false
+          env:
+             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           run: |
             gh pr create \
               -B main \
@@ -52,8 +55,6 @@ jobs:
               -a Lguanghui \
               -r Lguanghui \
               -l [ci]auto_update
-           env:
-             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #        - name: Create Pull Request
 #          uses: peter-evans/create-pull-request@v4
 #          with:
