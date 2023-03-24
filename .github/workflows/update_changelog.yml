@@ -28,9 +28,6 @@ jobs:
         - name: Checkout Branch
           run: |
             git config --global push.autoSetupRemote true
-#            LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
-#            git checkout -b $BRANCH $LATEST_TAG
-#            git push
             git checkout -b $default_branch origin/$default_branch
             git pull -r
         - name: Generate CHANGELOG.md
