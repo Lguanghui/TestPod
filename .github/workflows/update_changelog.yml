@@ -7,6 +7,7 @@ on:
 
 env:
   BRANCH: ci-auto-changelog
+  default_branch: main
 
 jobs:
   update_changelog:
@@ -27,9 +28,11 @@ jobs:
         - name: Checkout Branch
           run: |
             git config --global push.autoSetupRemote true
-            LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
-            git checkout -b $BRANCH $LATEST_TAG
-            git push
+#            LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+#            git checkout -b $BRANCH $LATEST_TAG
+#            git push
+            git checkout -b $default_branch origin/$default_branch
+            git pull -r
         - name: Generate CHANGELOG.md
           run: |
             git-chglog -o CHANGELOG.md
