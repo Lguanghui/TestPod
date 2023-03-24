@@ -56,8 +56,7 @@ jobs:
               -B main \
               --title '[CI] Auto Update CHANGELOG.md' \
               --body 'Update report \
-                - CHANGELOG.md \
-                ' \
+                - CHANGELOG.md' \
               -a Lguanghui \
               -r Lguanghui \
               -l [ci]auto_update
