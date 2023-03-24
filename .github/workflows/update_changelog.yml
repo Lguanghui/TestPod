@@ -28,6 +28,7 @@ jobs:
         - name: Checkout Branch
           run: |
             git config --global push.autoSetupRemote true
+            git fetch --all
             git checkout -b $default_branch origin/$default_branch
             git pull -r
         - name: Generate CHANGELOG.md
