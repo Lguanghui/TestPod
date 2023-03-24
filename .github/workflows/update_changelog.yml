@@ -2,8 +2,8 @@ name: Update CHANGELOG.md Automaticly
 
 on:
   push:
-    tags:
-      - "**"
+    branches:
+      - ci
 
 env:
   BRANCH: ci-auto-changelog
