@@ -6,6 +6,7 @@
 - **ci:** auto update CHANGELOG.md
 - **ci:** auto update CHANGELOG.md
 - **ci:** auto update CHANGELOG.md
+- **ci:** auto update CHANGELOG.md
 
 
 <a name="0.0.4"></a>
