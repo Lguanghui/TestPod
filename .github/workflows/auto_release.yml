@@ -8,6 +8,8 @@ on:
       - main
     paths:
       - 'CHANGELOG.md'
+env:
+  default_branch: main
 
 jobs:
   create_release:
@@ -19,6 +21,7 @@ jobs:
       - name: Checkout Branch
         run: |
           git fetch --all
+          git checkout -b $default_branch origin/$default_branch
           git pull -r
       - name: "Determine tag"
         run: |
