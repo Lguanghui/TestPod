@@ -33,7 +33,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          tag: $tag
+          tag: ${{ env.tag }}
 
 #       - name: "Create release"
 #         uses: "actions/github-script@v6"
