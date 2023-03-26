@@ -15,6 +15,8 @@ jobs:
   create_release:
     name: Create Release
     runs-on: macos-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -27,25 +29,29 @@ jobs:
         run: |
           RELEASE_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
           echo $RELEASE_TAG >> $GITHUB_ENV
-
-      - name: "Create release"
-        uses: "actions/github-script@v6"
+      - name: Create Release
+        uses: ncipollo/release-action@v1
         with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-          script: |
-            try {
-              const response = await github.rest.repos.createRelease({
-                draft: false,
-                generate_release_notes: true,
-                name: process.env.RELEASE_TAG,
-                owner: context.repo.owner,
-                prerelease: false,
-                repo: context.repo.repo,
-                tag_name: process.env.RELEASE_TAG,
-              });
+          allowUpdates: true
 
-              core.exportVariable('RELEASE_ID', response.data.id);
-              core.exportVariable('RELEASE_UPLOAD_URL', response.data.upload_url);
-            } catch (error) {
-              core.setFailed(error.message);
-            }
+#       - name: "Create release"
+#         uses: "actions/github-script@v6"
+#         with:
+#           github-token: "${{ secrets.GITHUB_TOKEN }}"
+#           script: |
+#             try {
+#               const response = await github.rest.repos.createRelease({
+#                 draft: false,
+#                 generate_release_notes: true,
+#                 name: process.env.RELEASE_TAG,
+#                 owner: context.repo.owner,
+#                 prerelease: false,
+#                 repo: context.repo.repo,
+#                 tag_name: process.env.RELEASE_TAG,
+#               });
+
+#               core.exportVariable('RELEASE_ID', response.data.id);
+#               core.exportVariable('RELEASE_UPLOAD_URL', response.data.upload_url);
+#             } catch (error) {
+#               core.setFailed(error.message);
+#             }
