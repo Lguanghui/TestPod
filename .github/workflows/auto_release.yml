@@ -10,6 +10,7 @@ on:
       - 'CHANGELOG.md'
 env:
   default_branch: main
+  tag: ''
 
 jobs:
   create_release:
@@ -26,13 +27,12 @@ jobs:
           git pull -r
       - name: "Determine tag"
         run: |
-          RELEASE_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
-          echo $RELEASE_TAG >> $GITHUB_ENV
+          tag=$(git describe --tags `git rev-list --tags --max-count=1`)
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          tag: $RELEASE_TAG
+          tag: tag
 
 #       - name: "Create release"
 #         uses: "actions/github-script@v6"
