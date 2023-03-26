@@ -28,11 +28,12 @@ jobs:
       - name: "Determine tag"
         run: |
           tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+          echo "$tag"
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          tag: tag
+          tag: $tag
 
 #       - name: "Create release"
 #         uses: "actions/github-script@v6"
