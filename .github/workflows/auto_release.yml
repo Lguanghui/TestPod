@@ -24,14 +24,15 @@ jobs:
 #         run: |
 #           git fetch --all
 #           git pull -r
-#       - name: "Determine tag"
-#         run: |
-#           RELEASE_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
-#           echo $RELEASE_TAG >> $GITHUB_ENV
+      - name: "Determine tag"
+        run: |
+          RELEASE_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+          echo $RELEASE_TAG >> $GITHUB_ENV
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
+          tag: $RELEASE_TAG
 
 #       - name: "Create release"
 #         uses: "actions/github-script@v6"
