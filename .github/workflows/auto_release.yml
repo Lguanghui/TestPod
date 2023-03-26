@@ -20,15 +20,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Checkout Branch
-        run: |
-          git fetch --all
-          git checkout -b $default_branch origin/$default_branch
-          git pull -r
-      - name: "Determine tag"
-        run: |
-          RELEASE_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
-          echo $RELEASE_TAG >> $GITHUB_ENV
+#       - name: Checkout Branch
+#         run: |
+#           git fetch --all
+#           git pull -r
+#       - name: "Determine tag"
+#         run: |
+#           RELEASE_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+#           echo $RELEASE_TAG >> $GITHUB_ENV
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
