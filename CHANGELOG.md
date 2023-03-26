@@ -2,6 +2,18 @@
 ## [Unreleased]
 
 
+<a name="0.0.5"></a>
+## [0.0.5] - 2023-03-26
+
+<a name="$tag"></a>
+## [$tag] - 2023-03-26
+### Chore
+- **ci:** auto update CHANGELOG.md
+
+### Pull Requests
+- Merge pull request [#19](https://github.com/Lguanghui/TestPod/issues/19) from Lguanghui/ci_pull_request
+
+
 <a name="tag"></a>
 ## [tag] - 2023-03-26
 ### Chore
@@ -62,7 +74,9 @@
 - add FoundationX
 
 
-[Unreleased]: https://github.com/Lguanghui/TestPod/compare/tag...HEAD
+[Unreleased]: https://github.com/Lguanghui/TestPod/compare/0.0.5...HEAD
+[0.0.5]: https://github.com/Lguanghui/TestPod/compare/$tag...0.0.5
+[$tag]: https://github.com/Lguanghui/TestPod/compare/tag...$tag
 [tag]: https://github.com/Lguanghui/TestPod/compare/0.0.4...tag
 [0.0.4]: https://github.com/Lguanghui/TestPod/compare/0.0.3...0.0.4
 [0.0.3]: https://github.com/Lguanghui/TestPod/compare/0.0.2...0.0.3
